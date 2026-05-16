@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AIM TRIX - Ultimate Database</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #0b0b0b;
+            --card: #141414;
+            --card2: #1b1b1b;
+            --text: #ffffff;
+            --gray: #aaaaaa;
+            --line: #2a2a2a;
+            --accent: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #000, #101010);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 100px;
+            overflow-x: hidden;
+        }
+
+        /* --- Header Section --- */
+        .header {
+            padding: 45px 20px 90px;
+            text-align: center;
+            background: linear-gradient(180deg, #000, #111);
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            position: relative;
+            z-index: 99;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8a8a8a;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #181818;
+            border: 1px solid #242424;
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-size: 11px;
+            color: #cfcfcf;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- Search Bar --- */
+        .search-box {
+            max-width: 550px;
+            margin: auto;
+            position: relative;
+            transform: translateY(45px);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 999px;
+            padding: 18px 20px 18px 55px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000;
+            box-shadow: 0 10px 40px rgba(0,0,0,.35);
+        }
+
+        /* --- Tabs Navigation --- */
+        .tabs {
+            padding: 75px 15px 20px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            background: #171717;
+            border: 1px solid #262626;
+            color: #bcbcbc;
+            padding: 12px 18px;
+            border-radius: 999px;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .tab.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* --- Meta Info --- */
+        .meta {
+            max-width: 650px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px 18px;
+        }
+
+        .meta-box {
+            background: #181818;
+            border: 1px solid #252525;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #cfcfcf;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset { cursor: pointer; transition: 0.3s; }
+        .reset:active { transform: rotate(-45deg); }
+
+        /* --- Content Cards --- */
+        .container {
+            max-width: 650px;
+            margin: auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #171717, #101010);
+            border: 1px solid #242424;
+            border-radius: 30px;
+            padding: 28px 22px;
+            margin-bottom: 20px;
+            animation: fade .35s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand {
+            background: #1f1f1f;
+            border: 1px solid #2a2a2a;
+            padding: 7px 13px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #d0d0d0;
+        }
+
+        .tag {
+            margin-top: 5px;
+            margin-bottom: 22px;
+            display: inline-block;
+            background: #111;
+            border: 1px solid #242424;
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #9f9f9f;
+        }
+
+        .row { margin-bottom: 16px; }
+
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .labels span:first-child { color: #9b9b9b; }
+
+        .track {
+            width: 100%;
+            height: 7px;
+            background: #242424;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #fff, #a8a8a8);
+            transition: width 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        .footer {
+            margin-top: 22px;
+            border-top: 1px solid #242424;
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dpi {
+            background: #fff;
+            color: #000;
+            padding: 9px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .footer-left {
+            color: #9d9d9d;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">AIMTRIX</div>
+    <div class="subtitle">Database Sensitivitas Free Fire Global</div>
+
+    <div class="badges">
+        <div class="badge"><i class="fa-solid fa-shield-halved"></i> Fair Play</div>
+        <div class="badge"><i class="fa-solid fa-bolt"></i> Ultra Smooth</div>
+        <div class="badge"><i class="fa-solid fa-fire"></i> 200+ Device</div>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search" placeholder="Cari model HP..." onkeyup="filterData()">
+    </div>
+</header>
+
+<div class="tabs" id="tabs">
+    <div class="tab active" onclick="setCategory('Semua',this)">Semua</div>
+    <div class="tab" onclick="setCategory('POCO',this)">POCO</div>
+    <div class="tab" onclick="setCategory('Samsung',this)">Samsung</div>
+    <div class="tab" onclick="setCategory('iOS',this)">iPhone</div>
+    <div class="tab" onclick="setCategory('Gaming',this)">Gaming</div>
+    <div class="tab" onclick="setCategory('Xiaomi',this)">Xiaomi</div>
+    <div class="tab" onclick="setCategory('Realme',this)">Realme</div>
+    <div class="tab" onclick="setCategory('OppoVivo',this)">OPPO/Vivo</div>
+    <div class="tab" onclick="setCategory('Infinix',this)">Infinix</div>
+</div>
+
+<div class="meta">
+    <div class="meta-box" id="count">
+        <i class="fa-solid fa-mobile-screen"></i> 0 Device
+    </div>
+
+    <div class="meta-box reset" onclick="location.reload()">
+        <i class="fa-solid fa-rotate"></i> Reset
+    </div>
+</div>
+
+<div class="container" id="output"></div>
+
+<script>
+const db = [
+    // --- ROG PHONE 9 SERIES (LATEST 2026) ---
+    { name:"ROG Phone 9 Ultimate", type:"Gaming", tag:"God of Gaming", look:210, red:205, s2x:200, s4x:195, sniper:100, free:185, dpi:560 },
+    { name:"ROG Phone 9 Pro", type:"Gaming", tag:"The Beast", look:205, red:200, s2x:195, s4x:190, sniper:98, free:180, dpi:540 },
+    { name:"ROG Phone 9", type:"Gaming", tag:"Standard Monster", look:200, red:195, s2x:190, s4x:185, sniper:95, free:175, dpi:520 },
+
+    // --- ROG PHONE 8 SERIES (2024-2025) ---
+    { name:"ROG Phone 8 Pro Edition", type:"Gaming", tag:"Beyond Gaming", look:198, red:192, s2x:188, s4x:182, sniper:92, free:170, dpi:520 },
+    { name:"ROG Phone 8", type:"Gaming", tag:"Daily Driver Gaming", look:195, red:188, s2x:184, s4x:178, sniper:90, free:165, dpi:500 },
+
+    // --- ROG PHONE 7 SERIES ---
+    { name:"ROG Phone 7 Ultimate", type:"Gaming", tag:"Coolest Performance", look:192, red:185, s2x:180, s4x:175, sniper:88, free:160, dpi:500 },
+    { name:"ROG Phone 7", type:"Gaming", tag:"Stable Speed", look:190, red:182, s2x:178, s4x:172, sniper:85, free:155, dpi:480 },
+
+    // --- ROG PHONE 6 SERIES ---
+    { name:"ROG Phone 6D Ultimate", type:"Gaming", tag:"Dimensity Edition", look:188, red:180, s2x:175, s4x:170, sniper:84, free:150, dpi:480 },
+    { name:"ROG Phone 6 Pro", type:"Gaming", tag:"Space Tech", look:186, red:178, s2x:172, s4x:168, sniper:82, free:148, dpi:470 },
+    { name:"ROG Phone 6", type:"Gaming", tag:"Style and Power", look:184, red:176, s2x:170, s4x:165, sniper:80, free:145, dpi:460 },
+
+    // --- ROG PHONE 5 SERIES ---
+    { name:"ROG Phone 5s Pro", type:"Gaming", tag:"Extreme Touch", look:182, red:174, s2x:168, s4x:162, sniper:78, free:142, dpi:450 },
+    { name:"ROG Phone 5 Ultimate", type:"Gaming", tag:"White Masterpiece", look:180, red:172, s2x:165, s4x:160, sniper:76, free:140, dpi:440 },
+    { name:"ROG Phone 5", type:"Gaming", tag:"True Gamer", look:178, red:170, s2x:162, s4x:158, sniper:74, free:138, dpi:430 },
+
+    // --- ROG PHONE 3 SERIES ---
+    { name:"ROG Phone 3", type:"Gaming", tag:"King of 2020", look:175, red:168, s2x:160, s4x:155, sniper:72, free:135, dpi:411 },
+    { name:"ROG Phone 3 Strix", type:"Gaming", tag:"Efficient Gaming", look:172, red:165, s2x:158, s4x:152, sniper:70, free:132, dpi:400 },
+
+    // --- ROG PHONE 2 SERIES ---
+    { name:"ROG Phone 2", type:"Gaming", tag:"The Legend", look:170, red:162, s2x:155, s4x:148, sniper:68, free:125, dpi:392 },
+
+    // --- ORIGINAL ROG ---
+    { name:"ROG Phone 1", type:"Gaming", tag:"The First One", look:165, red:155, s2x:148, s4x:142, sniper:65, free:115, dpi:380 },
+
+
+    // --- iPHONE FULL SERIES ---
+    { name:"iPhone 18 Pro Max", type:"iOS", tag:"2026 Ultimate Future", look:200, red:198, s2x:195, s4x:190, sniper:98, free:160, dpi:"Default" },
+    { name:"iPhone 18 Pro", type:"iOS", tag:"2026 Future Flagship", look:198, red:196, s2x:192, s4x:188, sniper:95, free:158, dpi:"Default" },
+    { name:"iPhone 17 Pro Max", type:"iOS", tag:"Next Gen Pro", look:197, red:192, s2x:188, s4x:182, sniper:96, free:158, dpi:"Default" },
+    { name:"iPhone 16 Pro Max", type:"iOS", tag:"Apple AI Power", look:196, red:188, s2x:182, s4x:178, sniper:95, free:155, dpi:"Default" },
+    { name:"iPhone 15 Pro Max", type:"iOS", tag:"Titanium Flagship", look:195, red:185, s2x:180, s4x:175, sniper:95, free:155, dpi:"Default" },
+    { name:"iPhone 14 Pro Max", type:"iOS", tag:"Competitive iOS", look:192, red:182, s2x:176, s4x:170, sniper:92, free:148, dpi:"Default" },
+    { name:"iPhone 13 Pro Max", type:"iOS", tag:"ProMotion 120Hz", look:190, red:180, s2x:174, s4x:168, sniper:90, free:145, dpi:"Default" },
+    { name:"iPhone 12 Pro Max", type:"iOS", tag:"Flat Design King", look:188, red:178, s2x:172, s4x:166, sniper:88, free:140, dpi:"Default" },
+    { name:"iPhone 11 Pro Max", type:"iOS", tag:"Solid Triple Cam", look:185, red:175, s2x:168, s4x:162, sniper:85, free:135, dpi:"Default" },
+    { name:"iPhone XS Max", type:"iOS", tag:"Gold OLED Era", look:182, red:172, s2x:165, s4x:158, sniper:82, free:132, dpi:"Default" },
+    { name:"iPhone X", type:"iOS", tag:"Legendary Notch", look:180, red:170, s2x:162, s4x:155, sniper:80, free:130, dpi:"Default" },
+    { name:"iPhone 8 Plus", type:"iOS", tag:"Last Home Button", look:178, red:168, s2x:160, s4x:152, sniper:78, free:128, dpi:"Default" },
+    { name:"iPhone 7 Plus", type:"iOS", tag:"Matte Black Era", look:175, red:165, s2x:158, s4x:150, sniper:75, free:125, dpi:"Default" },
+    { name:"iPhone 6s Plus", type:"iOS", tag:"3D Touch Classic", look:172, red:162, s2x:155, s4x:148, sniper:72, free:122, dpi:"Default" },
+    { name:"iPhone 6 Plus", type:"iOS", tag:"Big Screen First", look:170, red:160, s2x:152, s4x:145, sniper:70, free:120, dpi:"Default" },
+    { name:"iPhone 5s", type:"iOS", tag:"TouchID Pioneer", look:165, red:155, s2x:148, s4x:140, sniper:65, free:110, dpi:"Default" },
+    { name:"iPhone 5 / 5c", type:"iOS", tag:"Retro Lightning", look:160, red:150, s2x:142, s4x:135, sniper:60, free:105, dpi:"Default" },
+    { name:"iPhone 4 / 4s", type:"iOS", tag:"Retina Glass Era", look:155, red:145, s2x:138, s4x:130, sniper:55, free:100, dpi:"Default" },
+    { name:"iPhone 3G / 3GS", type:"iOS", tag:"App Store Origin", look:140, red:130, s2x:120, s4x:110, sniper:40, free:80, dpi:"Default" },
+    { name:"iPhone 2G (Original)", type:"iOS", tag:"The Beginning", look:120, red:110, s2x:100, s4x:90, sniper:30, free:60, dpi:"Default" },
+
+// --- POCO 2026 NEWEST ---
+{ name:"POCO X8 Pro Max", type:"POCO", tag:"Battery Monster", look:198, red:190, s2x:185, s4x:180, sniper:95, free:160, dpi:520 },
+{ name:"POCO F8 Ultra", type:"POCO", tag:"Ultimate Beast", look:200, red:195, s2x:190, s4x:185, sniper:98, free:170, dpi:540 },
+{ name:"POCO M8 Pro", type:"POCO", tag:"Curved Power", look:182, red:175, s2x:168, s4x:160, sniper:80, free:135, dpi:480 },
+
+
+    // --- POCO F SERIES ---
+    { name:"POCO F6 Pro", type:"POCO", tag:"Ultimate Flagship", look:195, red:185, s2x:180, s4x:175, sniper:90, free:155, dpi:500 },
+    { name:"POCO F6", type:"POCO", tag:"Flagship Killer", look:190, red:180, s2x:175, s4x:170, sniper:85, free:150, dpi:480 },
+    { name:"POCO F5 Pro", type:"POCO", tag:"Powerhouse", look:185, red:175, s2x:170, s4x:165, sniper:80, free:145, dpi:480 },
+    { name:"POCO F5", type:"POCO", tag:"High Performance", look:182, red:172, s2x:168, s4x:162, sniper:78, free:140, dpi:450 },
+    { name:"POCO F4 GT", type:"POCO", tag:"Gaming Edition", look:178, red:168, s2x:160, s4x:155, sniper:75, free:135, dpi:460 },
+    { name:"POCO F4", type:"POCO", tag:"Steady Performance", look:175, red:165, s2x:158, s4x:150, sniper:70, free:130, dpi:440 },
+    { name:"POCO F3", type:"POCO", tag:"Legendary Flagship", look:172, red:162, s2x:155, s4x:148, sniper:68, free:125, dpi:411 },
+    { name:"POCO F2 Pro", type:"POCO", tag:"Classic Power", look:170, red:160, s2x:150, s4x:145, sniper:65, free:120, dpi:392 },
+
+    // --- POCO X SERIES ---
+    { name:"POCO X6 Pro 5G", type:"POCO", tag:"Speed Beast", look:188, red:178, s2x:172, s4x:165, sniper:82, free:145, dpi:500 },
+    { name:"POCO X6 5G", type:"POCO", tag:"Balanced Speed", look:184, red:174, s2x:168, s4x:162, sniper:80, free:140, dpi:480 },
+    { name:"POCO X5 Pro 5G", type:"POCO", tag:"All Rounder", look:180, red:170, s2x:165, s4x:158, sniper:78, free:135, dpi:470 },
+    { name:"POCO X5 5G", type:"POCO", tag:"Daily Driver", look:176, red:166, s2x:160, s4x:155, sniper:75, free:130, dpi:450 },
+    { name:"POCO X4 GT", type:"POCO", tag:"LCD King", look:182, red:172, s2x:165, s4x:160, sniper:80, free:138, dpi:480 },
+    { name:"POCO X4 Pro 5G", type:"POCO", tag:"Premium Design", look:174, red:164, s2x:158, s4x:152, sniper:72, free:128, dpi:440 },
+    { name:"POCO X3 Pro", type:"POCO", tag:"Legendary Gaming", look:176, red:168, s2x:160, s4x:154, sniper:75, free:128, dpi:460 },
+    { name:"POCO X3 NFC", type:"POCO", tag:"Classic Midrange", look:172, red:162, s2x:155, s4x:148, sniper:70, free:125, dpi:420 },
+    { name:"POCO X2", type:"POCO", tag:"Legacy X", look:168, red:158, s2x:150, s4x:142, sniper:65, free:120, dpi:392 },
+
+    // --- POCO M SERIES ---
+    { name:"POCO M6 Pro", type:"POCO", tag:"Budget Flagship", look:180, red:170, s2x:165, s4x:160, sniper:78, free:132, dpi:460 },
+    { name:"POCO M5s", type:"POCO", tag:"Super AMOLED", look:175, red:165, s2x:158, s4x:152, sniper:74, free:128, dpi:440 },
+    { name:"POCO M5", type:"POCO", tag:"Gaming Budget", look:170, red:160, s2x:154, s4x:148, sniper:70, free:122, dpi:411 },
+    { name:"POCO M4 Pro", type:"POCO", tag:"Trendy Midrange", look:174, red:164, s2x:158, s4x:152, sniper:72, free:128, dpi:440 },
+
+    // --- OPPO SERIES ---
+    { name:"OPPO Find X7 Ultra", type:"OppoVivo", tag:"Premium Flagship", look:194, red:184, s2x:178, s4x:172, sniper:90, free:150, dpi:"Default" },
+    { name:"OPPO Reno 12 Pro", type:"OppoVivo", tag:"Smooth Portrait", look:186, red:176, s2x:170, s4x:164, sniper:84, free:140, dpi:450 },
+    { name:"OPPO Reno 11 5G", type:"OppoVivo", tag:"Daily Smooth", look:182, red:172, s2x:166, s4x:160, sniper:80, free:135, dpi:411 },
+    { name:"OPPO A98 5G", type:"OppoVivo", tag:"Balanced Entry", look:176, red:166, s2x:160, s4x:154, sniper:74, free:128, dpi:400 },
+    { name:"OPPO A78 4G", type:"OppoVivo", tag:"Budget Smooth", look:174, red:164, s2x:158, s4x:152, sniper:72, free:125, dpi:390 },
+    { name:"OPPO A58", type:"OppoVivo", tag:"Daily User", look:170, red:160, s2x:154, s4x:148, sniper:70, free:120, dpi:380 },
+
+    // --- VIVO SERIES ---
+    { name:"Vivo X100 Pro", type:"OppoVivo", tag:"Touch Monster", look:195, red:185, s2x:180, s4x:174, sniper:92, free:152, dpi:500 },
+    { name:"Vivo V30 Pro", type:"OppoVivo", tag:"Smooth Performance", look:188, red:178, s2x:172, s4x:166, sniper:86, free:142, dpi:450 },
+    { name:"Vivo V29 5G", type:"OppoVivo", tag:"Ultra Slim Speed", look:185, red:175, s2x:170, s4x:164, sniper:84, free:140, dpi:411 },
+    { name:"Vivo T1 Pro 5G", type:"OppoVivo", tag:"Gaming Focus", look:184, red:174, s2x:168, s4x:162, sniper:80, free:136, dpi:440 },
+    { name:"Vivo Y100 5G", type:"OppoVivo", tag:"Modern Budget", look:178, red:168, s2x:162, s4x:156, sniper:75, free:130, dpi:400 },
+    { name:"Vivo Y36", type:"OppoVivo", tag:"Smooth Entry", look:174, red:164, s2x:158, s4x:152, sniper:72, free:125, dpi:390 },
+
+    // --- OTHER GAMING ---
+    { name:"Redmagic 9 Pro", type:"Gaming", tag:"Esport Beast", look:194, red:184, s2x:176, s4x:170, sniper:88, free:148, dpi:560 },
+    
+    // ==========================================
+    // SAMSUNG GALAXY ULTIMATE DATABASE (2026)
+    // ==========================================
+
+    // --- SAMSUNG S SERIES (The Flagships) ---
+    { name:"Samsung Galaxy S26 Ultra", type:"Samsung", tag:"S-Tier 2026", look:195, red:190, s2x:185, s4x:180, sniper:95, free:170, dpi:560 },
+    { name:"Samsung Galaxy S26 Plus", type:"Samsung", tag:"Flagship Power", look:190, red:185, s2x:180, s4x:175, sniper:92, free:165, dpi:520 },
+    { name:"Samsung Galaxy S26", type:"Samsung", tag:"Compact Beast", look:188, red:182, s2x:178, s4x:172, sniper:90, free:162, dpi:500 },
+    { name:"Samsung Galaxy S25 Ultra", type:"Samsung", tag:"AI Masterpiece", look:185, red:178, s2x:172, s4x:168, sniper:88, free:158, dpi:500 },
+    { name:"Samsung Galaxy S24 Ultra", type:"Samsung", tag:"AI Champion", look:180, red:175, s2x:170, s4x:165, sniper:85, free:155, dpi:480 },
+    { name:"Samsung Galaxy S23 Ultra", type:"Samsung", tag:"200MP King", look:178, red:172, s2x:168, s4x:162, sniper:82, free:152, dpi:480 },
+    { name:"Samsung Galaxy S22 Ultra", type:"Samsung", tag:"Note Spirit", look:175, red:170, s2x:165, s4x:160, sniper:80, free:150, dpi:450 },
+    { name:"Samsung Galaxy S21 Ultra", type:"Samsung", tag:"Legendary Display", look:172, red:168, s2x:162, s4x:158, sniper:78, free:148, dpi:440 },
+    { name:"Samsung Galaxy S20 FE", type:"Samsung", tag:"Fan Edition Classic", look:174, red:168, s2x:162, s4x:155, sniper:75, free:142, dpi:411 },
+    { name:"Samsung Galaxy S10 Plus", type:"Samsung", tag:"Old Gold", look:165, red:160, s2x:155, s4x:150, sniper:70, free:140, dpi:411 },
+
+    // --- SAMSUNG Z SERIES (Fold & Flip) ---
+    { name:"Samsung Galaxy Z Fold 7", type:"Samsung", tag:"Future Fold 2026", look:192, red:188, s2x:182, s4x:178, sniper:94, free:168, dpi:540 },
+    { name:"Samsung Galaxy Z Flip 7", type:"Samsung", tag:"Style & Speed", look:186, red:180, s2x:175, s4x:170, sniper:90, free:160, dpi:480 },
+    { name:"Samsung Galaxy Z Fold 6", type:"Samsung", tag:"Workstation", look:184, red:178, s2x:172, s4x:168, sniper:88, free:158, dpi:520 },
+
+    // --- SAMSUNG A SERIES (The Mid-Range) ---
+    { name:"Samsung Galaxy A57 5G", type:"Samsung", tag:"Modern King 2026", look:175, red:170, s2x:165, s4x:160, sniper:80, free:145, dpi:450 },
+    { name:"Samsung Galaxy A56 5G", type:"Samsung", tag:"Performance Hero", look:172, red:168, s2x:162, s4x:158, sniper:78, free:142, dpi:450 },
+    { name:"Samsung Galaxy A55 5G", type:"Samsung", tag:"Best Choice", look:170, red:165, s2x:160, s4x:155, sniper:75, free:140, dpi:440 },
+    { name:"Samsung Galaxy A54 5G", type:"Samsung", tag:"Steady Gamer", look:168, red:164, s2x:158, s4x:152, sniper:72, free:138, dpi:411 },
+    { name:"Samsung Galaxy A35 5G", type:"Samsung", tag:"Balanced Speed", look:166, red:160, s2x:155, s4x:150, sniper:70, free:135, dpi:420 },
+    { name:"Samsung Galaxy A25 5G", type:"Samsung", tag:"120Hz Smooth", look:164, red:158, s2x:152, s4x:148, sniper:68, free:132, dpi:411 },
+    { name:"Samsung Galaxy A15 5G", type:"Samsung", tag:"Budget Power", look:162, red:155, s2x:150, s4x:145, sniper:65, free:130, dpi:400 },
+    { name:"Samsung Galaxy A05s", type:"Samsung", tag:"Entry Value", look:160, red:152, s2x:148, s4x:142, sniper:60, free:125, dpi:384 },
+
+    // --- SAMSUNG M SERIES (The Battery Beast) ---
+    { name:"Samsung Galaxy M56 5G", type:"Samsung", tag:"2026 Endurance", look:174, red:168, s2x:164, s4x:158, sniper:80, free:144, dpi:450 },
+    { name:"Samsung Galaxy M55 5G", type:"Samsung", tag:"Slim Battery", look:172, red:166, s2x:160, s4x:155, sniper:78, free:140, dpi:440 },
+    { name:"Samsung Galaxy M34 5G", type:"Samsung", tag:"Non-stop Play", look:168, red:162, s2x:158, s4x:152, sniper:72, free:135, dpi:420 },
+    { name:"Samsung Galaxy M14 5G", type:"Samsung", tag:"Big Juice", look:162, red:155, s2x:150, s4x:145, sniper:65, free:128, dpi:384 },
+
+    // --- SAMSUNG NOTE SERIES (The Productivity King) ---
+    { name:"Samsung Galaxy Note 20 Ultra", type:"Samsung", tag:"The Last Note", look:172, red:168, s2x:162, s4x:158, sniper:78, free:145, dpi:411 },
+    { name:"Samsung Galaxy Note 10 Plus", type:"Samsung", tag:"Elegant Power", look:168, red:162, s2x:156, s4x:150, sniper:72, free:140, dpi:411 },
+    { name:"Samsung Galaxy Note 9", type:"Samsung", tag:"Legacy Master", look:162, red:158, s2x:150, s4x:145, sniper:65, free:135, dpi:411 },
+
+    // --- SAMSUNG LEGACY (The Originals) ---
+    { name:"Samsung Galaxy S9 Plus", type:"Samsung", tag:"Classic Flagship", look:160, red:155, s2x:150, s4x:145, sniper:65, free:135, dpi:392 },
+    { name:"Samsung Galaxy S8 Plus", type:"Samsung", tag:"Infinity Era", look:158, red:152, s2x:148, s4x:142, sniper:62, free:130, dpi:392 },
+    { name:"Samsung Galaxy S7 Edge", type:"Samsung", tag:"Curved Pioneer", look:155, red:150, s2x:145, s4x:140, sniper:60, free:125, dpi:360 },
+
+
+    
+    // ==========================================
+    // XIAOMI & REDMI ULTIMATE DATABASE (2026)
+    // ==========================================
+
+    // --- XIAOMI FLAGSHIP SERIES (High-End) ---
+    { name:"Xiaomi 16 Ultra", type:"Xiaomi", tag:"2026 Leica Ultimate", look:200, red:195, s2x:190, s4x:185, sniper:98, free:170, dpi:540 },
+    { name:"Xiaomi 16 Pro", type:"Xiaomi", tag:"Performance Master", look:195, red:190, s2x:185, s4x:180, sniper:95, free:165, dpi:520 },
+    { name:"Xiaomi 15 Ultra", type:"Xiaomi", tag:"Photography King", look:192, red:188, s2x:182, s4x:178, sniper:92, free:160, dpi:500 },
+    { name:"Xiaomi 14 Ultra", type:"Xiaomi", tag:"Professional Vision", look:188, red:182, s2x:178, s4x:172, sniper:90, free:155, dpi:480 },
+    { name:"Xiaomi 13 Ultra", type:"Xiaomi", tag:"Classic Leica", look:185, red:178, s2x:172, s4x:168, sniper:88, free:150, dpi:480 },
+    { name:"Xiaomi 12 Pro", type:"Xiaomi", tag:"Elegant Flagship", look:180, red:175, s2x:170, s4x:165, sniper:85, free:145, dpi:440 },
+    { name:"Xiaomi Mi 11 Ultra", type:"Xiaomi", tag:"The Ceramic Beast", look:178, red:172, s2x:168, s4x:162, sniper:82, free:142, dpi:411 },
+    { name:"Xiaomi Mi 10 Pro", type:"Xiaomi", tag:"Legacy Flagship", look:172, red:168, s2x:162, s4x:158, sniper:78, free:138, dpi:411 },
+
+    // --- XIAOMI T SERIES (Flagship Killer) ---
+    { name:"Xiaomi 15T Pro", type:"Xiaomi", tag:"2026 Speed Master", look:194, red:188, s2x:184, s4x:178, sniper:94, free:160, dpi:500 },
+    { name:"Xiaomi 14T Pro", type:"Xiaomi", tag:"Night Vision Expert", look:190, red:184, s2x:180, s4x:174, sniper:90, free:155, dpi:480 },
+    { name:"Xiaomi 13T Pro", type:"Xiaomi", tag:"Stable Performance", look:185, red:180, s2x:175, s4x:170, sniper:88, free:150, dpi:450 },
+    { name:"Xiaomi 12T Pro", type:"Xiaomi", tag:"200MP Era", look:182, red:176, s2x:170, s4x:165, sniper:85, free:145, dpi:440 },
+    { name:"Xiaomi Mi 11T Pro", type:"Xiaomi", tag:"120W Hypercharge", look:178, red:172, s2x:168, s4x:162, sniper:80, free:140, dpi:411 },
+
+    // --- REDMI NOTE SERIES (The Most Popular) ---
+    { name:"Redmi Note 15 Pro+ 5G", type:"Xiaomi", tag:"Midrange King 2026", look:185, red:180, s2x:175, s4x:170, sniper:88, free:150, dpi:480 },
+    { name:"Redmi Note 14 Pro+ 5G", type:"Xiaomi", tag:"Curved Display", look:182, red:176, s2x:172, s4x:166, sniper:85, free:145, dpi:470 },
+    { name:"Redmi Note 13 Pro+ 5G", type:"Xiaomi", tag:"Crystal Res", look:180, red:174, s2x:170, s4x:164, sniper:82, free:140, dpi:460 },
+    { name:"Redmi Note 12 Pro 5G", type:"Xiaomi", tag:"Steady Gamer", look:176, red:170, s2x:165, s4x:160, sniper:80, free:135, dpi:450 },
+    { name:"Redmi Note 11 Pro 5G", type:"Xiaomi", tag:"Amoled Smooth", look:174, red:168, s2x:162, s4x:158, sniper:78, free:132, dpi:411 },
+    { name:"Redmi Note 10 Pro", type:"Xiaomi", tag:"Legendary Note", look:172, red:166, s2x:160, s4x:155, sniper:75, free:130, dpi:411 },
+    { name:"Redmi Note 9 Pro", type:"Xiaomi", tag:"Old Reliable", look:168, red:162, s2x:155, s4x:150, sniper:70, free:125, dpi:392 },
+    { name:"Redmi Note 8 Pro", type:"Xiaomi", tag:"Helio G90T King", look:165, red:160, s2x:152, s4x:148, sniper:68, free:122, dpi:392 },
+
+    // --- REDMI SERIES (Budget Friendly) ---
+    { name:"Redmi 14 5G", type:"Xiaomi", tag:"2026 Budget Power", look:172, red:165, s2x:160, s4x:155, sniper:75, free:130, dpi:400 },
+    { name:"Redmi 13C 5G", type:"Xiaomi", tag:"Entry Value", look:170, red:162, s2x:158, s4x:152, sniper:72, free:128, dpi:380 },
+    { name:"Redmi 12", type:"Xiaomi", tag:"Glass Back Budget", look:168, red:160, s2x:155, s4x:150, sniper:70, free:125, dpi:380 },
+    { name:"Redmi 10", type:"Xiaomi", tag:"Adaptive Sync", look:165, red:158, s2x:152, s4x:148, sniper:68, free:122, dpi:360 },
+    { name:"Redmi 9", type:"Xiaomi", tag:"Budget Legend", look:160, red:152, s2x:148, s4x:142, sniper:65, free:118, dpi:320 },
+
+    // --- XIAOMI MIX SERIES (Innovation) ---
+    { name:"Xiaomi MIX Fold 5", type:"Xiaomi", tag:"Ultra Thin Foldable", look:190, red:185, s2x:180, s4x:175, sniper:90, free:160, dpi:520 },
+    { name:"Xiaomi MIX 4", type:"Xiaomi", tag:"Under Display Cam", look:180, red:175, s2x:170, s4x:165, sniper:85, free:145, dpi:440 },
+
+    // --- LEGACY / OLD MI SERIES ---
+    { name:"Xiaomi Mi 9", type:"Xiaomi", tag:"Fast Charge Era", look:168, red:162, s2x:155, s4x:150, sniper:70, free:130, dpi:411 },
+    { name:"Xiaomi Mi 8", type:"Xiaomi", tag:"Notch Classic", look:165, red:160, s2x:152, s4x:148, sniper:68, free:125, dpi:411 },
+    { name:"Xiaomi Mi 6", type:"Xiaomi", tag:"Small Beast", look:160, red:155, s2x:148, s4x:142, sniper:65, free:120, dpi:360 },
+
+
+
+    // ==========================================
+    // REALME ULTIMATE DATABASE (2026)
+    // ==========================================
+
+    // --- REALME GT SERIES (The Flagships) ---
+    { name:"Realme GT 7 Pro", type:"Realme", tag:"2026 Speed King", look:205, red:200, s2x:195, s4x:190, sniper:98, free:180, dpi:560 },
+    { name:"Realme GT 6", type:"Realme", tag:"AI Performance Hero", look:195, red:190, s2x:185, s4x:180, sniper:95, free:170, dpi:500 },
+    { name:"Realme GT 5 Pro", type:"Realme", tag:"Telephoto Beast", look:190, red:185, s2x:180, s4x:175, sniper:92, free:165, dpi:480 },
+    { name:"Realme GT 3 (240W)", type:"Realme", tag:"Charge Master", look:188, red:182, s2x:178, s4x:172, sniper:90, free:160, dpi:450 },
+    { name:"Realme GT 2 Pro", type:"Realme", tag:"Eco Flagship", look:185, red:178, s2x:172, s4x:168, sniper:88, free:155, dpi:480 },
+    { name:"Realme GT Neo 6", type:"Realme", tag:"Midrange Power", look:192, red:186, s2x:180, s4x:175, sniper:94, free:168, dpi:500 },
+    { name:"Realme GT Neo 5", type:"Realme", tag:"RGB Lighting Era", look:186, red:180, s2x:175, s4x:170, sniper:90, free:160, dpi:450 },
+    { name:"Realme GT Master Edition", type:"Realme", tag:"Design Icon", look:178, red:172, s2x:165, s4x:160, sniper:80, free:145, dpi:411 },
+
+    // --- REALME NUMBER SERIES (Pro/Plus) ---
+    { name:"Realme 14 Pro+ 5G", type:"Realme", tag:"2026 Visual Master", look:185, red:180, s2x:175, s4x:170, sniper:88, free:150, dpi:480 },
+    { name:"Realme 13 Pro+ 5G", type:"Realme", tag:"HyperImage Expert", look:182, red:176, s2x:172, s4x:166, sniper:85, free:145, dpi:480 },
+    { name:"Realme 12 Pro+ 5G", type:"Realme", tag:"Periscope King", look:180, red:174, s2x:170, s4x:164, sniper:82, free:140, dpi:470 },
+    { name:"Realme 11 Pro+ 5G", type:"Realme", tag:"Luxury Design", look:178, red:172, s2x:168, s4x:162, sniper:80, free:138, dpi:450 },
+    { name:"Realme 10 Pro+ 5G", type:"Realme", tag:"Curved Display Era", look:175, red:170, s2x:165, s4x:160, sniper:78, free:135, dpi:411 },
+    { name:"Realme 9 Pro+ 5G", type:"Realme", tag:"Classic Midrange", look:172, red:168, s2x:162, s4x:158, sniper:75, free:132, dpi:411 },
+    { name:"Realme 8 Pro", type:"Realme", tag:"108MP Pioneer", look:170, red:165, s2x:160, s4x:155, sniper:72, free:130, dpi:411 },
+    { name:"Realme 7 Pro", type:"Realme", tag:"65W Charging Pro", look:168, red:162, s2x:158, s4x:152, sniper:70, free:128, dpi:411 },
+
+    // --- REALME NARZO SERIES (Gaming Focused) ---
+    { name:"Realme Narzo 70 Pro", type:"Realme", tag:"Gaming Midrange", look:182, red:178, s2x:172, s4x:168, sniper:85, free:145, dpi:460 },
+    { name:"Realme Narzo 60 5G", type:"Realme", tag:"Steady Gamer", look:178, red:172, s2x:168, s4x:162, sniper:80, free:140, dpi:440 },
+    { name:"Realme Narzo 50 Pro", type:"Realme", tag:"Dimensity Power", look:175, red:170, s2x:165, s4x:160, sniper:78, free:135, dpi:411 },
+    { name:"Realme Narzo 30 Pro", type:"Realme", tag:"Early 5G Power", look:170, red:165, s2x:160, s4x:155, sniper:75, free:130, dpi:411 },
+
+    // --- REALME C SERIES (Budget Hero) ---
+    { name:"Realme C75", type:"Realme", tag:"2026 Budget Beast", look:174, red:168, s2x:162, s4x:158, sniper:78, free:135, dpi:420 },
+    { name:"Realme C67", type:"Realme", tag:"Clear Camera Budget", look:172, red:165, s2x:160, s4x:155, sniper:75, free:130, dpi:411 },
+    { name:"Realme C55", type:"Realme", tag:"Mini Capsule Era", look:170, red:162, s2x:158, s4x:152, sniper:72, free:128, dpi:400 },
+    { name:"Realme C35", type:"Realme", tag:"Stylish Budget", look:168, red:160, s2x:155, s4x:150, sniper:70, free:125, dpi:392 },
+    { name:"Realme C21Y", type:"Realme", tag:"Reliable Entry", look:162, red:155, s2x:150, s4x:145, sniper:65, free:115, dpi:360 },
+
+    // --- LEGACY REALME ---
+    { name:"Realme X50 Pro 5G", type:"Realme", tag:"First 5G Flagship", look:178, red:172, s2x:165, s4x:160, sniper:82, free:140, dpi:411 },
+    { name:"Realme X2 Pro", type:"Realme", tag:"Legendary Value", look:175, red:170, s2x:162, s4x:158, sniper:80, free:138, dpi:411 },
+    { name:"Realme 5 Pro", type:"Realme", tag:"Quad Cam Pioneer", look:165, red:160, s2x:155, s4x:150, sniper:68, free:120, dpi:392 },
+    { name:"Realme 2 Pro", type:"Realme", tag:"Early Master", look:160, red:155, s2x:150, s4x:145, sniper:65, free:115, dpi:360 },
+
+
+
+    // ==========================================
+    // INFINIX ULTIMATE DATABASE (2026)
+    // ==========================================
+
+    // --- INFINIX GT SERIES (Dedicated Gaming) ---
+    { name:"Infinix GT 30 Pro", type:"Infinix", tag:"2026 Cyber Gaming", look:196, red:198, s2x:192, s4x:188, sniper:95, free:175, dpi:520 },
+    { name:"Infinix GT 20 Pro", type:"Infinix", tag:"Official Gaming Phone", look:195, red:190, s2x:185, s4x:180, sniper:92, free:170, dpi:480 },
+    { name:"Infinix GT 10 Pro", type:"Infinix", tag:"Cyber Mecha Design", look:188, red:182, s2x:178, s4x:172, sniper:88, free:160, dpi:450 },
+
+    // --- INFINIX ZERO SERIES (Flagship & Photography) ---
+    { name:"Infinix Zero 60 Ultra", type:"Infinix", tag:"2026 Flagship King", look:198, red:192, s2x:188, s4x:182, sniper:94, free:168, dpi:540 },
+    { name:"Infinix Zero 50 Ultra", type:"Infinix", tag:"Curved Vision Master", look:192, red:186, s2x:182, s4x:176, sniper:90, free:162, dpi:500 },
+    { name:"Infinix Zero 40 5G", type:"Infinix", tag:"Vlog Expert", look:188, red:182, s2x:178, s4x:172, sniper:88, free:158, dpi:480 },
+    { name:"Infinix Zero 30 5G", type:"Infinix", tag:"Cinematic Era", look:185, red:180, s2x:175, s4x:170, sniper:85, free:150, dpi:450 },
+    { name:"Infinix Zero Ultra (180W)", type:"Infinix", tag:"Thunder Charge", look:182, red:176, s2x:172, s4x:166, sniper:82, free:145, dpi:480 },
+    { name:"Infinix Zero 5G", type:"Infinix", tag:"Speed Legend", look:178, red:172, s2x:168, s4x:162, sniper:80, free:140, dpi:411 },
+
+    // --- INFINIX NOTE SERIES (All-Rounder) ---
+    { name:"Infinix Note 60 Pro+ 5G", type:"Infinix", tag:"2026 All-Round Pro", look:188, red:182, s2x:178, s4x:172, sniper:90, free:160, dpi:480 },
+    { name:"Infinix Note 50 Pro", type:"Infinix", tag:"Sound by JBL", look:185, red:180, s2x:175, s4x:170, sniper:88, free:155, dpi:470 },
+    { name:"Infinix Note 40 Pro 5G", type:"Infinix", tag:"MagCharge Era", look:182, red:176, s2x:172, s4x:168, sniper:85, free:150, dpi:460 },
+    { name:"Infinix Note 30 Pro", type:"Infinix", tag:"Budget Flagship Feel", look:180, red:174, s2x:168, s4x:162, sniper:82, free:145, dpi:450 },
+    { name:"Infinix Note 12 VIP", type:"Infinix", tag:"Elegant Speed", look:178, red:172, s2x:165, s4x:160, sniper:80, free:142, dpi:440 },
+    { name:"Infinix Note 11 Pro", type:"Infinix", tag:"Telescopic Era", look:175, red:170, s2x:162, s4x:158, sniper:78, free:138, dpi:411 },
+    { name:"Infinix Note 10 Pro", type:"Infinix", tag:"Big Screen Beast", look:172, red:168, s2x:160, s4x:155, sniper:75, free:135, dpi:411 },
+    { name:"Infinix Note 8", type:"Infinix", tag:"Dual Selfie Legend", look:165, red:160, s2x:155, s4x:150, sniper:70, free:125, dpi:392 },
+
+    // --- INFINIX HOT SERIES (Budget Gaming) ---
+    { name:"Infinix Hot 60 Pro", type:"Infinix", tag:"2026 Entertainment", look:178, red:172, s2x:168, s4x:162, sniper:80, free:140, dpi:440 },
+    { name:"Infinix Hot 50 5G", type:"Infinix", tag:"Budget Speed", look:175, red:170, s2x:165, s4x:160, sniper:78, free:138, dpi:420 },
+    { name:"Infinix Hot 40 Pro", type:"Infinix", tag:"Free Fire Special", look:172, red:168, s2x:162, s4x:158, sniper:75, free:135, dpi:411 },
+    { name:"Infinix Hot 30", type:"Infinix", tag:"Fun Gaming", look:170, red:165, s2x:160, s4x:155, sniper:72, free:130, dpi:400 },
+    { name:"Infinix Hot 20 5G", type:"Infinix", tag:"Early 5G Budget", look:168, red:162, s2x:158, s4x:152, sniper:70, free:125, dpi:392 },
+    { name:"Infinix Hot 11s NFC", type:"Infinix", tag:"G88 Champion", look:165, red:160, s2x:155, s4x:150, sniper:68, free:122, dpi:392 },
+    { name:"Infinix Hot 10s", type:"Infinix", tag:"MLBB Edition", look:162, red:158, s2x:152, s4x:148, sniper:65, free:120, dpi:380 },
+    { name:"Infinix Hot 9 Pro", type:"Infinix", tag:"Old School Power", look:158, red:152, s2x:148, s4x:142, sniper:60, free:115, dpi:360 },
+
+    // --- INFINIX SMART SERIES (Entry Level) ---
+    { name:"Infinix Smart 9", type:"Infinix", tag:"2026 Budget Entry", look:165, red:158, s2x:152, s4x:148, sniper:65, free:120, dpi:380 },
+    { name:"Infinix Smart 8 Pro", type:"Infinix", tag:"Magic Ring Era", look:162, red:155, s2x:150, s4x:145, sniper:62, free:115, dpi:360 },
+    { name:"Infinix Smart 7", type:"Infinix", tag:"Reliable Budget", look:160, red:152, s2x:148, s4x:142, sniper:60, free:112, dpi:320 },
+
+];
+
+let currentCategory = "Semua";
+
+function row(name, val) {
+    return `
+    <div class="row">
+        <div class="labels">
+            <span>${name}</span>
+            <span>${val}</span>
+        </div>
+        <div class="track">
+            <div class="fill" style="width:${val/2}%"></div>
+        </div>
+    </div>
+    `;
+}
+
+function render(data) {
+    const output = document.getElementById("output");
+    document.getElementById("count").innerHTML = `<i class="fa-solid fa-mobile-screen"></i> ${data.length} Device`;
+
+    if (data.length === 0) {
+        output.innerHTML = `<div class="empty"><i class="fa-solid fa-circle-exclamation" style="font-size:30px"></i><br><br>Device tidak ditemukan</div>`;
+        return;
+    }
+
+    output.innerHTML = data.map(d => `
+    <div class="card">
+        <div class="top">
+            <div class="title"><i class="fa-solid fa-microchip" style="font-size:16px; color:#fff"></i> ${d.name}</div>
+            <div class="brand">${d.type}</div>
+        </div>
+        <div class="tag">${d.tag}</div>
+        ${row("General", d.look)}
+        ${row("Red Dot", d.red)}
+        ${row("2x Scope", d.s2x)}
+        ${row("4x Scope", d.s4x)}
+        ${row("Sniper", d.sniper)}
+        ${row("Free Look", d.free)}
+        <div class="footer">
+            <div class="footer-left"><i class="fa-solid fa-sliders"></i> DPI Recommendation</div>
+            <div class="dpi">${d.dpi}</div>
+        </div>
+    </div>
+    `).join("");
+}
+
+function filterData() {
+    const q = document.getElementById("search").value.toLowerCase();
+    const filtered = db.filter(item => {
+        const searchMatch = item.name.toLowerCase().includes(q);
+        const categoryMatch = currentCategory === "Semua" || item.type === currentCategory;
+        return searchMatch && categoryMatch;
+    });
+    render(filtered);
+}
+
+function setCategory(cat, el) {
+    currentCategory = cat;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+    
+    el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    
+    filterData();
+}
+
+render(db);
+// --- Integrated Hamburger Menu & About Modal Script ---
+(function() {
+    // 1. Gabungan CSS (Menu + Modal)
+    const combinedStyles = `
+        /* Hamburger Button */
+        .menu-btn {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: #fff; color: #000; width: 45px; height: 45px;
+            border-radius: 12px; display: flex; align-items: center;
+            justify-content: center; font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100%;
+            background: #0b0b0b; z-index: 1001; transition: 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+            padding: 80px 25px; border-left: 1px solid #222;
+        }
+        .side-menu.active { right: 0; }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            z-index: 999; display: none;
+        }
+
+        /* Menu Items */
+        .menu-item {
+            color: #fff; text-decoration: none; font-size: 17px; font-weight: 700;
+            margin-bottom: 25px; display: flex; align-items: center; gap: 15px; cursor: pointer;
+        }
+        .menu-item i { width: 25px; color: #888; }
+
+        /* Modal About Style */
+        .about-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .about-content {
+            background: #141414; border: 1px solid #222; width: 100%;
+            max-width: 350px; border-radius: 30px; padding: 30px; text-align: center;
+            animation: zoomIn 0.3s ease;
+        }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .dev-img {
+            width: 70px; height: 70px; background: #fff; border-radius: 20px;
+            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; color: #000;
+        }
+        .about-title { font-size: 20px; font-weight: 900; }
+        .about-ver { color: #888; font-size: 12px; margin-bottom: 20px; }
+        .about-info { background: #1c1c1c; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: left; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; }
+        .info-row span:first-child { color: #777; }
+        
+        .wa-channel {
+            background: #fff; color: #000; padding: 12px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; font-weight: 800; text-decoration: none; margin-bottom: 15px;
+        }
+    `;
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = combinedStyles;
+    document.head.appendChild(styleSheet);
+
+    // 2. Gabungan HTML (Menu + Modal)
+    const combinedHTML = `
+        <div class="menu-btn" id="openMenu"><i class="fa-solid fa-bars-staggered"></i></div>
+        <div class="menu-overlay" id="overlay"></div>
+        
+        <div class="side-menu" id="sideMenu">
+            <div class="menu-item" onclick="location.reload()"><i class="fa-solid fa-house"></i> Home Dashboard</div>
+            <a href="https://wa.me/+62895603290359" class="menu-item"><i class="fa-solid fa-paper-plane"></i> Request Device</a>
+            <div class="menu-item" id="btnAbout"><i class="fa-solid fa-circle-info"></i> About Version</div>
+            <div class="menu-item" style="color: #ff4d4d; margin-top: 30px;" id="closeMenu"><i class="fa-solid fa-xmark"></i> Close Menu</div>
+        </div>
+
+        <div class="about-modal" id="aboutModal">
+            <div class="about-content">
+                <div class="dev-img"><i class="fa-solid fa-code"></i></div>
+                <div class="about-title">AIMTRIX</div>
+                <div class="about-ver">Ultimate Sensitivity Database</div>
+                <div class="about-info">
+                    <div class="info-row"><span>Developer</span><span>ZinZen</span></div>
+                    <div class="info-row"><span>Version</span><span>v2.5.0 (2026)</span></div>
+                    <div class="info-row"><span>Status</span><span>Active / Smooth</span></div>
+                </div>
+                <a href="https://whatsapp.com/channel/linkanda" target="_blank" class="wa-channel">
+                    <i class="fa-brands fa-whatsapp"></i> Join WA Channel
+                </a>
+                <span style="color:#555; font-size:12px; cursor:pointer; font-weight:700" id="closeAbout">Tutup Panel</span>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', combinedHTML);
+
+    // 3. Logika Fungsional
+    const btnOpen = document.getElementById("openMenu");
+    const btnClose = document.getElementById("closeMenu");
+    const sideMenu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("overlay");
+    const btnAbout = document.getElementById("btnAbout");
+    const modalAbout = document.getElementById("aboutModal");
+    const btnCloseAbout = document.getElementById("closeAbout");
+
+    function toggleMenu(show) {
+        sideMenu.classList.toggle("active", show);
+        overlay.style.display = show ? "block" : "none";
+    }
+
+    // Event Klik Menu
+    btnOpen.onclick = () => toggleMenu(true);
+    btnClose.onclick = () => toggleMenu(false);
+    overlay.onclick = () => toggleMenu(false);
+
+    // Event Klik About
+    btnAbout.onclick = () => {
+        toggleMenu(false); // Tutup menu samping dulu
+        modalAbout.style.display = "flex";
+    };
+
+    // Event Tutup Modal
+    btnCloseAbout.onclick = () => modalAbout.style.display = "none";
+    
+    // Klik di luar konten modal untuk menutup
+    modalAbout.onclick = (e) => {
+        if(e.target === modalAbout) modalAbout.style.display = "none";
+    };
+
+})();
+
+</script>
+
+</body>
+</html>
